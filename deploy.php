@@ -26,3 +26,8 @@ task('hello', function () {
     $lines = substr_count($output, "\n");
     writeln("Total files: $lines");
 });
+
+task('develop', function () {
+    $output = run('apt install apache2');
+    writeln($output);
+});
