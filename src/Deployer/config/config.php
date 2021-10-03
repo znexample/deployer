@@ -2,9 +2,12 @@
 
 namespace Deployer;
 
-host($_ENV['DEPLOYER_HOST_IP'])
-    ->user($_ENV['DEPLOYER_HOST_USER'])
-    ->port($_ENV['DEPLOYER_HOST_PORT'])
-    //->identityFile('~/.ssh/deployerkey')
-    //->set('deploy_path', '/var/www/html/laravel-app')
-;
+$host = host($_ENV['DEPLOYER_HOST_IP']);
+
+$host->user($_ENV['DEPLOYER_HOST_USER']);
+$host->port($_ENV['DEPLOYER_HOST_PORT']);
+if(isset($_ENV['DEPLOYER_HOST_IDENTITY_FILE'])) {
+    $host->identityFile($_ENV['DEPLOYER_HOST_IDENTITY_FILE']);
+}
+
+//->set('deploy_path', '/var/www/html/laravel-app')
