@@ -1,0 +1,14 @@
+{
+    "name": "tool/ubuntu-server",
+    "authors": [
+        {
+            "name": "Vitaliy",
+            "email": "theyamshikov@yandex.ru"
+        }
+    ],
+    "require": {
+        "deployer/deployer": "v6.8.0",
+        "symfony/dotenv": "^5.3",
+        "symfony/var-dumper": "^5.3"
+    }
+}
