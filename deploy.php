@@ -6,6 +6,7 @@ use App\Deployer\Helpers\LoaderHelper;
 
 require_once __DIR__ . '/src/Deployer/config/bootstrap.php';
 require_once __DIR__ . '/vendor/deployer/deployer/recipe/common.php';
+//require_once __DIR__ . '/vendor/deployer/deployer/recipe/';
 require_once __DIR__ . '/src/Deployer/recipe/init_ssh.php';
 
 $taskDir = __DIR__ . '/src/Deployer/Tasks';
