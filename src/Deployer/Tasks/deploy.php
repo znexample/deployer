@@ -6,14 +6,12 @@ namespace Deployer;
 
 task('deploy:up', [
     'deploy:info',
-    'deploy:init',
-
-//    'deploy:prepare',
+    'deploy:prepare',
 //    'deploy:lock',
 //    'deploy:release',
-//    'deploy:update_code',
+    'deploy:update_code',
     'deploy:vendors',
-//    'deploy:init',
+    'deploy:init',
 //    'deploy:shared',
 //    'deploy:writable',
 //    'deploy:run_migrations',
@@ -23,28 +21,34 @@ task('deploy:up', [
 ])->desc('Deploy your project');
 
 task('deploy:init', function () {
-//    initProject('git@gitlab.com:casino-zero/tournament.git', 'casino-zero/tournament');
-    //cd('/var/www/casino-zero');
-    $isExists = test("[ -f {{deploy_path}}/.env ]");
-    //$output = run('ls -l');
-    if(! $isExists) {
-        writeln('git clone');
-        $output = run('{{bin/git}} clone {{repository}} {{deploy_path}}');
-    } else {
-        writeln('git pull');
-        cd('{{deploy_path}}');
-        $output = run('{{bin/git}} pull');
-    }
+    cd('{{release_path}}/vendor/bin');
+    run('{{bin/php}} zn init --env=Testing --overwrite=All');
+})->desc('Initialization');
 
-    writeln($output);
+task('deploy:run_migrations', function () {
+    cd('{{release_path}}/vendor/bin');
+    run('{{bin/php}} zn db:migrate:up');
+})->desc('Run migrations');
+
+task('deploy:prepare', function () {
+    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
+    $isExists = test("[ -f {{deploy_path}}/.env ]");
+    cd('{{deploy_path}}');
+    if(! $isExists) {
+        //writeln('git clone');
+        $output = run('{{bin/git}} clone {{repository}} {{deploy_path}}');
+    }
+});
+
+task('deploy:update_code', function () {
+    cd('{{deploy_path}}');
+    $output = run('{{bin/git}} fetch origin {{branch}}');
+    $output = run('{{bin/git}} checkout {{branch}}');
+//    $output = run('{{bin/git}} pull');
+    //writeln($output);
 });
 
 task('deploy:down', function () {
-    cd('/var/www');
     $output = run('rm -rf {{deploy_path}}');
     writeln($output);
-
-//    cd('/');
-//    $output = run('ls -l');
-//    writeln($output);
 });
