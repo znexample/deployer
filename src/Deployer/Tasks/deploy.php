@@ -7,7 +7,7 @@ namespace Deployer;
 task('deploy:up', [
     'deploy:info',
     'deploy:prepare',
-//    'deploy:lock',
+    'deploy:lock',
 //    'deploy:release',
     'deploy:update_code',
     'deploy:vendors',
@@ -16,7 +16,7 @@ task('deploy:up', [
 //    'deploy:writable',
     'deploy:run_migrations',
 //    'deploy:symlink',
-//    'deploy:unlock',
+    'deploy:unlock',
 //    'cleanup',
 ])->desc('Deploy your project');
 
@@ -33,14 +33,23 @@ task('deploy:run_migrations', function () {
     writeln($output);
 })->desc('Run migrations');
 
+function makeDirectory(string $directory) {
+    run("mkdir -p $directory");
+}
+
+function isFileExists(string $file): bool {
+    return test("[ -f $file ]");
+}
+
 task('deploy:prepare', function () {
-    run("if [ ! -d {{deploy_path}} ]; then mkdir -p {{deploy_path}}; fi");
-    $isExists = test("[ -f {{deploy_path}}/.env ]");
+    makeDirectory('{{deploy_path}}');
+    $isExists = isFileExists("{{deploy_path}}/.env");
     cd('{{deploy_path}}');
     if(! $isExists) {
         writeln('git clone');
         $output = run('{{bin/git}} clone {{repository}} {{deploy_path}}');
     }
+    makeDirectory('{{deploy_path}}/.dep');
 });
 
 task('deploy:update_code', function () {
