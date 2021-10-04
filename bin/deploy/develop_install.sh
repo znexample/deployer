@@ -1,4 +1,4 @@
 #!/bin/sh
-cd ..
+cd ../..
 #"../vendor/bin/dep"  hello
 dep develop:install
