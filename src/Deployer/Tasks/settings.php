@@ -11,5 +11,3 @@ task('settings:up', [
     'settings:gitSsh',
     'settings:gitSshInfo',
 ])->desc('Settings up');
-
-//set('ssh_directory', '/home/vitaliy/.ssh');
