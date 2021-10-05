@@ -5,6 +5,7 @@ namespace Deployer;
 //{{bin/git}}
 
 task('deploy:up', [
+    //'ssh:connect',
     'deploy:info',
     'deploy:prepare',
 //    'deploy:lock',

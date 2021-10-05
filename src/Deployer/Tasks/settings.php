@@ -6,9 +6,11 @@ use ZnCore\Base\Helpers\TempHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 
 task('settings:up', [
-    'settings:runSshAgent',
-    'settings:authSsh',
-    'settings:gitSsh',
+    //'ssh:connect_by_root',
+//    'settings:runSshAgent',
+//    'settings:authSsh',
+//    'settings:gitSsh',
+    'settings:gitSshInfo',
 ])->desc('Settings up');
 
 set('ssh_directory', '/home/vitaliy/.ssh');
