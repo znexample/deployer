@@ -12,9 +12,6 @@ require_once __DIR__ . '/vendor/zntool/deployer/src/recipe/zn.php';
 
 App::init();
 
-// keep track of the start time so we can compute total time
-$startTime = microtime( true );
-
 // default for deployment is staging
 set( 'default_stage', 'staging' );
 
@@ -67,14 +64,6 @@ set( 'allow_anonymous_stats', true );
  * and then at the bottom there's one task to call all the subtasks
  */
 
-// if deploy to production, then ask to be sure
-task( 'confirm', function () {
-    if ( ! askConfirmation( 'Are you sure you want to deploy to production?' ) ) {
-        write( 'Ok, quitting.' );
-        die;
-    }
-} )->onStage( 'production' );
-
 // check out code from 2nd repo and move it into place
 /*task( 'update:code-chat-client', function () {
     // note next line: for this repo, pull from the special 'deploy' branch
@@ -112,36 +101,6 @@ task( 'create:symlinks', function () {
 //    run( '{{sudo_cmd}} pm2 stop chat-client' );
 //    run( '{{sudo_cmd}} pm2 start {{release_path}}/html/final/client.min.js --name chat-client' );
 //} );
-
-// finally, notify user that we're done and compute total time
-task( 'notify:done', function () use ( $startTime ) {
-    $seconds = intval( microtime( true ) - $startTime );
-    $minutes = substr( '0' . intval( $seconds / 60 ), - 2 );
-    $seconds %= 60;
-    $seconds = substr( '0' . $seconds, - 2 );
-
-    // show (and speak) notification on desktop so we know it's done!
-    // note that next 2 commands are mac-specific
-    shell_exec( "osascript -e 'display notification \"Total time: $minutes:$seconds\" with title \"Deploy Finished\"'" );
-    shell_exec( 'say --rate 200 deployment finished' );
-} );
-
-// roll back to previous release
-task( 'rollback', function () {
-    $releases = get( 'releases_list' );
-    if ( isset( $releases[1] ) ) {
-        // if we are using laravel artisan, take down site
-        // writeln(sprintf('  <error>%s</error>', run('php {{deploy_path}}/live/artisan down')));
-        $releaseDir = $releases[1];
-        run( "{{sudo_cmd}} ln -nfs $releaseDir {{deploy_path}}/live" );
-        run( "{{sudo_cmd}} rm -rf {$releases[0]}" );
-        writeln( "Rollback to `{$releases[1]}` release was successful." );
-        // if we are using laravel artisan, bring site back up
-        // writeln(sprintf('  <error>%s</error>', run("php {{deploy_path}}/live/artisan up")));
-    } else {
-        writeln( '  <comment>No more releases you can revert to.</comment>' );
-    }
-} );
 
 // this task runs all the subtasks defined above
 task( 'deploy', [
