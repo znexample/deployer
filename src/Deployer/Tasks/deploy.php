@@ -11,35 +11,17 @@ task('deploy:up', [
 //    'deploy:release',
     'deploy:update_code',
     'deploy:vendors',
-    'deploy:init',
+    'zn:init',
 //    'deploy:shared',
 //    'deploy:writable',
-    'deploy:run_migrations',
-    'deploy:import_fixtures',
+    'zn:run_migrations',
+    'zn:import_fixtures',
 //    'deploy:symlink',
 //    'deploy:unlock',
 //    'cleanup',
 ])->desc('Deploy your project');
 
 //after('deploy', 'success');
-
-task('deploy:init', function () {
-    cd('{{release_path}}/vendor/bin');
-    $output = run('{{bin/php}} zn init --env=Ci --overwrite=All');
-    writeln($output);
-})->desc('Initialization');
-
-task('deploy:run_migrations', function () {
-    cd('{{release_path}}/vendor/bin');
-    $output = run('{{bin/php}} zn db:migrate:up --withConfirm=0');
-    writeln($output);
-})->desc('Run migrations');
-
-task('deploy:import_fixtures', function () {
-    cd('{{release_path}}/vendor/bin');
-    $output = run('{{bin/php}} zn db:fixture:import --withConfirm=0');
-    writeln($output);
-})->desc('Import fixtures');
 
 task('deploy:prepare', function () {
     makeDirectory('{{deploy_path}}');
