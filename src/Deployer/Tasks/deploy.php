@@ -24,7 +24,8 @@ task('deploy:up', [
 
 task('deploy:init', function () {
     cd('{{release_path}}/vendor/bin');
-    run('{{bin/php}} zn init --env=Ci --overwrite=All');
+    $output = run('{{bin/php}} zn init --env=Ci --overwrite=All');
+    writeln($output);
 })->desc('Initialization');
 
 task('deploy:run_migrations', function () {
@@ -32,14 +33,6 @@ task('deploy:run_migrations', function () {
     $output = run('{{bin/php}} zn db:migrate:up');
     writeln($output);
 })->desc('Run migrations');
-
-function makeDirectory(string $directory) {
-    run("mkdir -p $directory");
-}
-
-function isFileExists(string $file): bool {
-    return test("[ -f $file ]");
-}
 
 task('deploy:prepare', function () {
     makeDirectory('{{deploy_path}}');
