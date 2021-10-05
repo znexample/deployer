@@ -7,7 +7,7 @@ namespace Deployer;
 task('deploy:up', [
     'deploy:info',
     'deploy:prepare',
-    'deploy:lock',
+//    'deploy:lock',
 //    'deploy:release',
     'deploy:update_code',
     'deploy:vendors',
@@ -16,7 +16,7 @@ task('deploy:up', [
 //    'deploy:writable',
     'deploy:run_migrations',
 //    'deploy:symlink',
-    'deploy:unlock',
+//    'deploy:unlock',
 //    'cleanup',
 ])->desc('Deploy your project');
 
