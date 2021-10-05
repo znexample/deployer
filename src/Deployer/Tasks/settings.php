@@ -7,9 +7,9 @@ use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 
 task('settings:up', [
     //'ssh:connect_by_root',
-//    'settings:runSshAgent',
-//    'settings:authSsh',
-//    'settings:gitSsh',
+    'settings:runSshAgent',
+    'settings:authSsh',
+    'settings:gitSsh',
     'settings:gitSshInfo',
 ])->desc('Settings up');
 
@@ -45,11 +45,10 @@ task('settings:gitSsh', function () {
 });
 
 task('settings:gitSshInfo', function () {
-    cd('~/.ssh');
+    /*cd('~/.ssh');
     $output = run('ls -l');
-    writeln($output);
+    writeln($output);*/
 
     $output = run('ssh-add -l');
     writeln($output);
 });
-
