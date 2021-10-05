@@ -4,8 +4,6 @@ namespace Deployer;
 
 require_once __DIR__ . '/../../../vendor/zntool/deployer/src/recipe/deploy.php';
 
-//{{bin/git}}
-
 task('deploy:up', [
     //'ssh:connect',
     'deploy:info',

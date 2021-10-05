@@ -1,4 +1,4 @@
 #!/bin/sh
 cd ../..
 #"../vendor/bin/dep"  hello
-dep develop:install
+dep settings:env_info
