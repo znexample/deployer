@@ -7,10 +7,15 @@
         }
     ],
     "require": {
-        "deployer/deployer": "v6.8.0",
-        "symfony/dotenv": "^5.3",
+        "zncore/base": "dev-master",
+        "zncore/domain": "dev-master",
+        "znlib/console": "dev-master",
+        "znsandbox/sandbox": "dev-master"
+    },
+    "require-dev": {
         "symfony/var-dumper": "^5.3",
-        "zncore/base": "^0.0.44"
+        "zntool/deployer": "dev-main",
+        "zntool/package": "dev-master"
     },
     "autoload": {
         "psr-4": {
