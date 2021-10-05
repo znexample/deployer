@@ -7,8 +7,8 @@ use ZnCore\Base\Legacy\Yii\Helpers\FileHelper;
 
 task('settings:up', [
     //'ssh:connect_by_root',
-    'settings:runSshAgent',
-    'settings:authSsh',
+    //'settings:runSshAgent',
+//    'settings:authSsh',
     'settings:gitSsh',
     'settings:gitSshInfo',
 ])->desc('Settings up');
@@ -17,31 +17,26 @@ set('ssh_directory', '/home/vitaliy/.ssh');
 
 task('settings:runSshAgent', function () {
     run('eval $(ssh-agent)');
-/*    run('if ps -p $SSH_AGENT_PID > /dev/null
-then
-   echo "ssh-agent is already running"
-else
-    eval $(ssh-agent)
-fi');*/
 });
 
 task('settings:authSsh', function () {
-    $isUploaded = uploadIfNotExist('{{ssh_directory}}/ubuntu_server.pub', '~/.ssh/authorized_keys');
-    /*$isExists = isFileExists("~/.ssh/authorized_keys");*/
+    $key = '{{ssh_directory}}/ubuntu_server';
+    if(!isFileExistsLocally($key)) {
+        runLocally('ssh-keygen -t rsa -b 2048 -C "my@example.com" -f '.$key.' -N ""');
+        runLocally('eval $(ssh-agent)');
+        runLocally("ssh-add $key");
+    }
+    $isUploaded = uploadIfNotExist($key . '.pub', '~/.ssh/authorized_keys');
     if ($isUploaded) {
         writeln("auth key installed!");
     }
 });
 
 task('settings:gitSsh', function () {
-    if (!isFileExists('~/.ssh/config')) {
-        upload('{{ssh_directory}}/config', '~/.ssh/config');
-    }
+    uploadIfNotExist('{{ssh_directory}}/config', '~/.ssh/config');
+    uploadIfNotExist('{{ssh_directory}}/known_hosts', '~/.ssh/known_hosts');
     uploadKey('my-github');
     uploadKey('my-gitlab');
-
-//    run('ssh-add ~/.ssh/my-gitlab');
-//    run('ssh-add ~/.ssh/my-github');
 });
 
 task('settings:gitSshInfo', function () {

@@ -18,13 +18,33 @@ function isFileExists(string $file): bool
     return test("[ -f $file ]");
 }
 
+function isFileExistsLocally(string $file): bool
+{
+    return testLocally("[ -f $file ]");
+}
+
+function runSshAgent()
+{
+    run('eval $(ssh-agent)');
+
+    /*    run('if ps -p $SSH_AGENT_PID > /dev/null
+then
+   echo "ssh-agent is already running"
+else
+    eval $(ssh-agent)
+fi');*/
+
+}
+
 function uploadKey(string $source)
 {
     $dest = "~/.ssh/$source";
     $isUploadedPrivateKey = uploadIfNotExist("{{ssh_directory}}/$source", $dest);
     $isUploadedPublicKey = uploadIfNotExist("{{ssh_directory}}/$source.pub", "$dest.pub");
     if($isUploadedPrivateKey || $isUploadedPublicKey) {
-        run("ssh-add ~/.ssh/$source");
+        runSshAgent();
+        run("ssh-add -D $dest");
+        run("ssh-add $dest");
     }
 }
 
