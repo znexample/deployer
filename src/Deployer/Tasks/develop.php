@@ -3,10 +3,10 @@
 namespace Deployer;
 
 task('develop:install', function () {
-    $output = run('php -v');
+    $output = run('{{bin/php}} -v');
     writeln($output);
 
-    $output = run('git --version');
+    $output = run('{{bin/git}} --version');
     writeln($output);
 //    cd('/');
 //    $output = run('ls -l');
