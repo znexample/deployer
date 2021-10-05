@@ -15,6 +15,7 @@ task('deploy:up', [
 //    'deploy:shared',
 //    'deploy:writable',
     'deploy:run_migrations',
+    'deploy:import_fixtures',
 //    'deploy:symlink',
 //    'deploy:unlock',
 //    'cleanup',
@@ -30,14 +31,20 @@ task('deploy:init', function () {
 
 task('deploy:run_migrations', function () {
     cd('{{release_path}}/vendor/bin');
-    $output = run('{{bin/php}} zn db:migrate:up');
+    $output = run('{{bin/php}} zn db:migrate:up --withConfirm=0');
     writeln($output);
 })->desc('Run migrations');
+
+task('deploy:import_fixtures', function () {
+    cd('{{release_path}}/vendor/bin');
+    $output = run('{{bin/php}} zn db:fixture:import --withConfirm=0');
+    writeln($output);
+})->desc('Import fixtures');
 
 task('deploy:prepare', function () {
     makeDirectory('{{deploy_path}}');
     $isExists = isFileExists("{{deploy_path}}/.env");
-    cd('{{deploy_path}}');
+    //cd('{{deploy_path}}');
     if(! $isExists) {
         writeln('git clone');
         $output = run('{{bin/git}} clone {{repository}} {{deploy_path}}');
