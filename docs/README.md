@@ -6,10 +6,14 @@
 ## Perm
 
     sudo chmod -R ugo+rwx /etc/apache2
-    sudo chmod -R ugo+rwx /etc/apache2/sites-available
     sudo chmod -R ugo+rwx /etc/php
     sudo chmod ugo+rwx /etc/hosts
     sudo chmod -R ugo+rwx /var/www
+    
+    sudo usermod -aG www-data user
+    sudo chfn -o umask=022 user
+    sudo chown user:www-data /var/www
+    sudo chmod g+s /var/www
     
     mv /etc/apache2/sites-enabled /etc/apache2/sites-enabled.bak
     ln -s /etc/apache2/sites-available /etc/apache2/sites-enabled
