@@ -23,8 +23,8 @@ set( 'application', 'mysite');
 set( 'keep_releases', 3 );
 
 // this web site pulls from two repositories - the main repo and a secondary repo with a chat client
-set( 'repo-main', $_ENV['DEPLOYER_REPOSITORY'] );
-set( 'repo-chat-client', 'https://github_username@github.com/github_username/my-chat-client.git');
+//set( 'repo-main', $_ENV['DEPLOYER_REPOSITORY'] );
+//set( 'repo-chat-client', 'https://github_username@github.com/github_username/my-chat-client.git');
 
 // allocate tty for git clone - this is if you need to enter a passphrase or whatever to
 // authenticate with github. for public repos you probably won't need this, for private
@@ -78,7 +78,7 @@ set( 'allow_anonymous_stats', true );
     run( "{{sudo_cmd}} rm -rf {{release_path}}/html/final/js/src" );
 } );*/
 
-// update filesystem permissions
+/*// update filesystem permissions
 task( 'update:permissions', function () {
     run( '{{sudo_cmd}} mkdir {{release_path}}/messages/cache');
     run( '{{sudo_cmd}} chmod -R a+w {{release_path}}/messages/cache');
@@ -91,7 +91,7 @@ task( 'update:permissions', function () {
 task( 'create:symlinks', function () {
     // links to external storage holding video library
     run( "{{sudo_cmd}} ln -nfs /sdb/storage/videos {{release_path}}" );
-} );
+} );*/
 
 // as part of the deployment we need to restart the chat server
 // you may also need to restart your web server, just to be safe
