@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-require_once __DIR__ . '/../../../vendor/zntool/deployer/src/recipe/settings.php';
+/*require_once __DIR__ . '/../../../vendor/zntool/deployer/src/recipe/settings.php';
 
 task('settings:up', [
     //'ssh:connect_by_root',
@@ -10,4 +10,4 @@ task('settings:up', [
 //    'settings:authSsh',
     'settings:gitSsh',
     'settings:gitSshInfo',
-])->desc('Settings up');
+])->desc('Settings up');*/
