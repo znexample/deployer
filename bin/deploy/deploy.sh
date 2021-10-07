@@ -1,4 +1,4 @@
 #!/bin/sh
 cd ../..
-#"../vendor/bin/dep"  hello
-dep deploy
+vendor/bin/dep deploy
+#dep deploy

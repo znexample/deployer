@@ -1,3 +1,4 @@
 #!/bin/sh
 cd ../../..
-dep settings
+vendor/bin/dep settings
+#dep settings

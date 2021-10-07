@@ -1,3 +1,4 @@
 #!/bin/sh
 cd ../../..
-dep ssh:config:set_sudo_password
+vendor/bin/dep ssh:config:set_sudo_password
+#dep ssh:config:set_sudo_password
