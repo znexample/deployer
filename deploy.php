@@ -13,8 +13,8 @@ require_once __DIR__ . '/vendor/zntool/deployer/src/recipe/tools.php';
 
 App::init();
 App::initVarsFromArray([
-    'repository' => 'git@gitlab.com:casino-zero/tournament.git',
-    'branch' => 'clean',
+//    'repository' => 'git@gitlab.com:casino-zero/tournament.git',
+//    'branch' => 'clean',
     'public_directory' => 'public_html',
     'keep_releases' => 3,
     'allow_anonymous_stats' => 1,
