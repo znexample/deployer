@@ -16,10 +16,24 @@ App::initVarsFromArray([
 //    'repository' => 'git@gitlab.com:casino-zero/tournament.git',
 //    'branch' => 'clean',
     'show_detail' => 0,
-    'public_directory' => 'public_html',
+//    'public_directory' => 'public_html',
+
+    'release_public_path' => '{{release_path}}/public_html',
+    'deploy_public_path' => '{{deploy_path}}/public_html',
+
     'keep_releases' => 3,
     'allow_anonymous_stats' => 1,
     'git_tty' => 1,
     'application' => 'mysite',
     'default_stage' => 'staging',
+    'ssh_key_list' => [
+        [
+            'name' => 'my-github',
+            'host' => 'github.com',
+        ],
+        [
+            'name' => 'my-gitlab',
+            'host' => 'gitlab.com',
+        ],
+    ],
 ]);
