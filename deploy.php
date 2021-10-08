@@ -15,6 +15,7 @@ App::init();
 App::initVarsFromArray([
 //    'repository' => 'git@gitlab.com:casino-zero/tournament.git',
 //    'branch' => 'clean',
+    'show_detail' => 0,
     'public_directory' => 'public_html',
     'keep_releases' => 3,
     'allow_anonymous_stats' => 1,
