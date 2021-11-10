@@ -8,8 +8,8 @@ return [
     //'release_public_path' => '{{release_path}}/public',
     //'deploy_public_path' => '{{current_path}}/public',
 
-    'deploy_var_path' => '{{deploy_path}}/var',
-    'release_var_path' => '{{release_path}}/var',
+//    'deploy_var_path' => '{{deploy_path}}/var',
+//    'release_var_path' => '{{release_path}}/var',
     //'current_path' => '{{deploy_path}}/current',
 
     'application' => 'React template',
@@ -19,9 +19,9 @@ return [
             'directory' => '{{current_path}}/build',
         ],
     ],
-    'permissions' => [
-        /*[
+    /*'permissions' => [
+        [
             'path' => '{{deploy_var_path}}',
-        ],*/
-    ],
+        ],
+    ],*/
 ];
